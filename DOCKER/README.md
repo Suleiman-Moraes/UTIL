@@ -2,13 +2,13 @@
 
 This guide shows how to install and run Docker Engine inside WSL2 on Windows without Docker Desktop.
 
-✅ Goal:
+✅ Goal:  
 Open a terminal in any folder and run:
 
 ```bash
 docker compose up -d
 docker ps
-```
+````
 
 Using Docker installed via WSL2.
 
@@ -45,7 +45,7 @@ wsl --set-default-version 2
 
 If not installed:
 
-* Run: wsl --install -d Ubuntu
+* Run: `wsl --install -d Ubuntu`
 * Or install Ubuntu via Microsoft Store
 
 Then open Ubuntu and set up your user/password.
@@ -89,14 +89,13 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 
 ## 🧪 Step 4 – Test Docker
 
-Start Docker and check version:
+Check version:
 
 ```bash
-sudo service docker start
 docker version
 ```
 
-(Optional) Avoid needing sudo:
+(Optional) Avoid needing `sudo`:
 
 ```bash
 sudo usermod -aG docker $USER
@@ -105,27 +104,31 @@ newgrp docker
 
 ---
 
-## ⚙️ Step 5 – Auto-start Docker in WSL (Optional)
+## ⚙️ Step 5 – Auto-start Docker in WSL
 
-### ✅ Option: Automatically start Docker on WSL launch
+Docker does **not** start automatically in WSL2, and `systemctl` is not supported. So we’ll create a lightweight script that launches the Docker daemon whenever your WSL terminal opens.
 
-1. Create script:
+### ✅ Create the auto-start script
+
+1. Create script file:
 
 ```bash
 sudo nano /usr/local/bin/start-docker
 ```
 
-Paste:
+Paste this:
 
 ```bash
-#!/bin/sh
-if (! pgrep -x dockerd > /dev/null); then
-  sudo dockerd > /var/log/dockerd.log 2>&1 &
-  echo "Docker daemon started."
+#!/bin/bash
+
+# Start Docker daemon if not already running
+if ! pgrep -x dockerd > /dev/null; then
+  echo "Starting Docker daemon..."
+  nohup sudo dockerd > "$HOME/dockerd.log" 2>&1 &
 fi
 ```
 
-Save: Ctrl+O → Enter → Ctrl+X
+> This avoids permission issues and logs to `~/dockerd.log`.
 
 2. Make it executable:
 
@@ -133,54 +136,61 @@ Save: Ctrl+O → Enter → Ctrl+X
 sudo chmod +x /usr/local/bin/start-docker
 ```
 
-3. Add to .bashrc:
+3. Add it to your shell startup:
+
+If using Bash:
 
 ```bash
 nano ~/.bashrc
 ```
 
-Append at the end:
+If using Zsh:
 
 ```bash
-# Start Docker if not running
+nano ~/.zshrc
+```
+
+Append this at the end:
+
+```bash
+# Automatically start Docker if it's not running
 /usr/local/bin/start-docker
 ```
 
-Then reload:
+Then reload the shell:
 
 ```bash
-source ~/.bashrc
+source ~/.bashrc  # or source ~/.zshrc
 ```
 
-Now Docker will auto-start with your WSL session.
-
-Alternatively, run manually:
-
-```bash
-sudo service docker start
-```
+> ✅ Now Docker will **start automatically** every time you launch WSL.
 
 ---
 
 ## 📦 Step 6 – Enable docker CLI in Windows terminal (Optional)
 
+If you want to use Docker CLI from PowerShell or CMD instead of inside WSL:
+
 Stop WSL Docker service:
 
 ```bash
-sudo service docker stop
+sudo pkill dockerd
 ```
 
-Then run with Unix + TCP socket:
+Then run:
 
 ```bash
 sudo dockerd -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375
 ```
 
+This opens access to Docker over TCP (for tools like Portainer or Docker CLI in Windows).
+Use with caution — no auth is enabled on port 2375.
+
 ---
 
 ## 📁 Step 7 – Install docker-compose on Windows (Optional)
 
-1. Download latest docker-compose.exe:
+1. Download latest `docker-compose.exe`:
    🔗 [https://github.com/docker/compose/releases](https://github.com/docker/compose/releases)
 
 2. Rename it to:
@@ -214,5 +224,4 @@ docker compose up -d
 docker ps
 ```
 
-You’re now running Docker Engine inside WSL2 without Docker Desktop!
-
+You’re now running Docker Engine inside WSL2 — **no Docker Desktop required!**
