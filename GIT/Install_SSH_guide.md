@@ -123,7 +123,8 @@ ssh -T git@github.com
 
 Expected response:
 
-``` Hi YOUR_USERNAME! You've successfully authenticated...
+```
+Hi YOUR_USERNAME! You've successfully authenticated...
 
 ```
 
@@ -144,7 +145,8 @@ git remote -v
 
 If something like this appears:
 
-``` https://github.com/username/repository.git
+```
+https://github.com/username/repository.git
 ```
 
 we need to change it.
@@ -155,18 +157,20 @@ we need to change it.
 
 Correct format:
 
-``` git@github.com:username/repository.git
+```
+git@github.com:username/repository.git
 ```
 
 Command:
 
-```bash git remote set-url origin git@github.com:YOUR_USERNAME/YOUR_REPOSITORY.git
+```
+bash git remote set-url origin git@github.com:YOUR_USERNAME/YOUR_REPOSITORY.git
 ```
 
 Validate:
 
-```bash git remote -v
-
+```
+bash git remote -v
 ```
 
 ---
@@ -175,10 +179,11 @@ Validate:
 
 Standard flow:
 
-```bash git status git add .
-
-`git commit -m "My message"`
-`git push origin main`
+```bash
+git status
+git add .
+git commit -m "My message"
+git push origin main
 
 ```
 
@@ -233,14 +238,12 @@ VS Code **inherits the system SSH**, so:
 
 ```bash
 ssh-add -l
-
 ```
 
 If empty:
 
 ```bash
 ssh-add ~/.ssh/id_ed25519
-
 ```
 
 ---
@@ -255,21 +258,11 @@ ssh-add ~/.ssh/id_ed25519
 
 Create `~/.ssh/config`:
 
-```text Host github.com
+```text
+Host github.com
 HostName github.com
 User git
 IdentityFile ~/.ssh/id_ed25519
 ```
 
 ---
-
-## Next step (optional)
-
-If you want, I can:
-
-* Validate your current setup (with command outputs)
-* Help configure **GPG commit signing**
-* Integrate **SSH + multiple GitHub accounts**
-* Adjust everything for **WSL** (if you use it)
-
-Just tell me how you want to proceed.
