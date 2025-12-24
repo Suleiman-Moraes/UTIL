@@ -76,14 +76,18 @@ C:\Users\YOUR_USERNAME\.ssh\
 
 In **PowerShell (as a normal user)**:
 
-```powershell Get-Service ssh-agent | Set-Service -StartupType Automatic
+```powershell
+Get-Service ssh-agent | Set-Service -StartupType Automatic
+```
+```powershell
 Start-Service ssh-agent
+```
 
 Add the key to the agent:
 
-bash
+```bash
 ssh-add $env:USERPROFILE\.ssh\id_ed25519
-
+```
 
 ---
 
@@ -91,14 +95,16 @@ ssh-add $env:USERPROFILE\.ssh\id_ed25519
 
 ### 4.1 Copy the public key
 
-bash
+```bash
 type $env:USERPROFILE\.ssh\id_ed25519.pub
+```
 
 
 Copy **everything**, starting with:
 
+```
 ssh-ed25519 AAAAC3NzaC1...
-
+```
 
 ---
 
@@ -118,14 +124,12 @@ ssh-ed25519 AAAAC3NzaC1...
 
 ```bash
 ssh -T git@github.com
-
 ```
 
 Expected response:
 
 ```
 Hi YOUR_USERNAME! You've successfully authenticated...
-
 ```
 
 If this works, **SSH is correctly configured**.
@@ -140,7 +144,6 @@ Within the project:
 
 ```bash
 git remote -v
-
 ```
 
 If something like this appears:
