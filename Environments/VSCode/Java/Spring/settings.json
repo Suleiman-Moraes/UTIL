@@ -11,6 +11,23 @@
     },
     // "spring-boot.ls.java.home": "{path}\\jdk-17",
     // "java.jdt.ls.java.home": "{path}\\jdk-17",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-21",
+            "path": "C:\\Program Files\\Java\\jdk21"
+        },
+        {
+            "name": "JavaSE-25",
+            "path": "C:\\Program Files\\Java\\jdk25",
+            "default": true
+        }
+    ],
+    "terminal.integrated.env.windows": {
+        "JAVA_HOME": "C:\\Program Files\\Java\\jdk25",
+        "M2_HOME": "{path}\\maven",
+        "MAVEN_HOME": "{path}\\maven",
+        "PATH": "C:\\Program Files\\Java\\jdk25\\bin;{path}\\maven\\bin;C:\\Program Files\\Git\\bin;{env:PATH}"
+    },
     "actionButtons": {
         "commands": [
             {
