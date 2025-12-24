@@ -1,7 +1,5 @@
----
-
 **Git Submodules**.
-They allow a “parent” repository to **reference other repositories**, displaying them as **folders**, and in the **GitHub UI** those folders appear as **clickable links** that redirect to the child repository.
+They allow a "parent" repository to **reference other repositories**, displaying them as **folders**, and in the **GitHub UI** those folders appear as **clickable links** that redirect to the child repository.
 
 Below, I explain the concept **first**, and then provide the **step-by-step procedure**, already aligned with usage via **CLI and VS Code**.
 
@@ -199,5 +197,3 @@ Only **submodules** meet your exact visual and functional requirement.
 | Monorepo  | No                  | N/A             | ❌           |
 
 ---
-
-Just say how you would like to proceed.
