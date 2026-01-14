@@ -1,5 +1,6 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
+    "java.referencesCodeLens.enabled": true,
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
